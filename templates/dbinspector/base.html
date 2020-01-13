@@ -1,0 +1,138 @@
+{% load static %}
+<!doctype html>
+<html>
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Legal - Ministry of Health</title>
+
+    <link rel="icon" href="{% static "images/favicon.ico" %}" type="image/x-icon">
+
+<style>
+
+body {
+    font-family: monospace;
+    font-size: .68rem;
+}
+
+h1 {
+    border-left: .6em solid;
+    padding-left: 1em;
+}
+
+.split {
+    display: grid;
+    grid-gap: 0 24px;
+    grid-auto-rows: 1fr;
+    overflow-x: auto;
+}
+.split.no-stretch { grid-auto-rows: auto; }
+.split.no-stretch > * { align-self: start; }
+.split.row-gap { grid-row-gap: 24px; }
+
+.split.split2 { grid-template-columns: repeat(2, 1fr) }
+.split.split3 { grid-template-columns: repeat(3, 1fr) }
+.split.split4 { grid-template-columns: repeat(4, 1fr) }
+.split.split5 { grid-template-columns: repeat(5, 1fr) }
+.split.split6 { grid-template-columns: repeat(6, 1fr) }
+
+.split > .fullspan { grid-column: 1 / -1; }
+.split > .span2{ grid-column: span 2; }
+.split > .span3{ grid-column: span 3; }
+.split > .span4{ grid-column: span 4; }
+.split > .span5{ grid-column: span 5; }
+.split > .span6{ grid-column: span 6; }
+
+input[type="text"]{
+    border-radius: 2px;
+    border: 1px solid #bdbdbd;
+    margin: 1px;
+    box-shadow: 1px 1px 2px 0 rgba(0,0,0,.15) inset;
+    font-family: inherit;
+    font-size: inherit;
+}
+input[type="text"]:focus{
+    background-color: #FFF9C4;
+}
+input[type="text"].has-value{
+    background-color: #FFF9C4;
+}
+input[type="text"].fluid{
+    box-sizing: border-box;
+}
+
+table {
+    border-collapse: collapse;
+}
+thead td, thead th{
+    -ms-word-break: break-all;
+    word-break: break-all;
+    word-break: break-word;
+}
+td, th {
+    border: 1px solid #ccc;
+}
+td{
+    vertical-align: top;
+}
+tbody tr:hover {
+    background-color: #E3F2FD;
+    color: #2196F3;
+}
+hr{
+    margin: 2em 0;
+}
+
+.truncated::after{
+    content: '…';
+    background-color: #eee;
+    border-radius: 2px;
+    margin-left: .4em;
+    padding: 0 1em;
+    cursor: pointer;
+}
+
+input[type="submit"] {
+    background-color: #eaeaea;
+    border-radius: 2px;
+    border: 1px solid #bdbdbd;
+    margin: 1px;
+    box-shadow: 0 -1px 1px 0 rgba(255,255,255,.85) inset;
+    padding: 0 2em;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+.pagination .page{
+    background-color: #ccc;
+    color: #fff;
+    padding: 0 .4em;
+    display: inline-block;
+    border-radius: 2px;
+}
+.pagination .page:hover{
+    background-color: #E3F2FD;
+    color: #2196F3;
+}
+
+</style>
+
+</head>
+
+<body>
+
+    {% block content %}{% endblock %}
+
+<script>
+var inputs = document.querySelectorAll('input[type="text"]');
+setInterval(function(){
+    inputs.forEach(function(input){
+        input.classList.toggle('has-value', input.value);
+    });
+}, 400);
+</script>
+
+</body>
+
+</html>

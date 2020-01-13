@@ -1,0 +1,53 @@
+{% extends "dbinspector/base.html" %}
+
+{% block content %}
+
+<form method="get" action="" novalidate>
+
+    {% for model_filter in ifilter %}
+
+    {{ model_filter.name }}
+    |
+    Page: <input type="text" name="{{ model_filter.name }}._page" value="{{ model_filter.page|default_if_none:"" }}" size=5/> of {{ model_filter.num_pages }}
+    |
+    Showing: {{ model_filter.count }} of {{ model_filter.count_total }}
+    <input type="submit" value="Filter"/>
+    <table>
+        <thead>
+            <tr>
+                {% for field in model_filter.fields %}
+                <th>{{ field.name }}</th>
+                {% endfor %}
+            </tr>
+            <tr>
+                {% for field, value in model_filter.field_filters %}
+                <th>
+                    <input type="text" name="{{ field.unique_name }}" class="fluid" value="{{ value|default_if_none:"" }}" {% if field.is_numeric %}size=5{% endif %}/>
+                </th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in model_filter.get_rows %}
+            <tr>
+                {% for value, is_truncated in row %}
+                <td>
+                    {% if is_truncated %}
+                        <span class="truncated">{{ value }}</span>
+                    {% else %}
+                        {{ value }}
+                    {% endif %}
+                </td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <hr/>
+
+    {% endfor %}
+
+</form>
+
+{% endblock %}
