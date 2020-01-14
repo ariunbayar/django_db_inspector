@@ -21,7 +21,7 @@ class RelationField():
         self.field = field
         self.model = field.model
         self.is_fk = isinstance(field, models.ForeignKey)
-        self.is_rel = isinstance(field, models.ManyToOneRel)
+        self.is_rel = isinstance(field, models.ManyToOneRel) or isinstance(field, models.ManyToManyRel)
 
         self.related_model = None
         if self.is_fk:
