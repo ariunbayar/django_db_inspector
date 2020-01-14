@@ -100,9 +100,11 @@ class ModelFilter():
             filters = {}
             for rfield in self.rfields_rel:
                 rel_field = rfield.field.remote_field
-                remote_qs = self.manager.get_model_filter(rel_field.model).get_qs_rel()
-                if remote_qs != QS_NO_FILTER:
-                    filters['id__in'] = remote_qs.values_list(rel_field.name)
+                remote_model_filter = self.manager.get_model_filter(rel_field.model)
+                if remote_model_filter:
+                    remote_qs = remote_model_filter.get_qs_rel()
+                    if remote_qs != QS_NO_FILTER:
+                        filters['id__in'] = remote_qs.values_list(rel_field.name)
 
             if filters:
                 if qs == QS_NO_FILTER:
@@ -221,7 +223,7 @@ class InspectorFilter():
 
 
     def get_model_filter(self, model):
-        return self.model_filters[model]
+        return self.model_filters.get(model)
 
     def __iter__(self):
         for model, model_filter in self.model_filters.items():
